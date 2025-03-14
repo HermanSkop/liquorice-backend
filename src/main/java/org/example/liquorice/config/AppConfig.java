@@ -5,5 +5,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
     public final static int PAGE_SIZE = 10;
-    public final static int API_VERSION = 1;
+    public final static int JWT_ACCESS_TOKEN_SECONDS_TIMEOUT_SKEW = 10;
+    public final static String BASE_PATH = "/api/v1";
+    public static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+    public static final String PASSWORD_REGEX_MESSAGE = "Password must contain at least one letter, one number, one special character, and be at least 8 characters long.";
 }

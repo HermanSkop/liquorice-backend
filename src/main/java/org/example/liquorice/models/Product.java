@@ -1,4 +1,4 @@
-package org.example.liquorice.model;
+package org.example.liquorice.models;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -11,7 +11,7 @@ import java.util.List;
 @Document(collection = "products")
 public class Product {
     @Id
-    private int id;
+    private String id;
     private String name;
     private String description;
     private double price;

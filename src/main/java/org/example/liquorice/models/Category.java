@@ -1,8 +1,7 @@
-package org.example.liquorice.model;
+package org.example.liquorice.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

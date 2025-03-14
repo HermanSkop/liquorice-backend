@@ -1,4 +1,4 @@
-package org.example.liquorice.model;
+package org.example.liquorice.models;
 
 public class Address {
     private String street;
