@@ -53,4 +53,10 @@ public class ProductController {
 
         return productService.getProductPreviewDtos(pageable, search, categoryNames);
     }
+
+    @GetMapping("/categories")
+    public List<String> getCategories() {
+        List<String> categories = productService.getAllCategories();
+        return productService.getAllCategories();
+    }
 }

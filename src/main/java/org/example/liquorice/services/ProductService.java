@@ -54,7 +54,6 @@ public class ProductService {
     }
 
     public List<String> getAllCategories() {
-        // Using aggregation to get distinct category names
         TypedAggregation<Product> aggregation = Aggregation.newAggregation(
                 Product.class,
                 Aggregation.unwind("categories"),
@@ -62,8 +61,7 @@ public class ProductService {
                 Aggregation.project().and("category").as("name")
         );
 
-        AggregationResults<Document> results =
-                mongoTemplate.aggregate(aggregation, "products", Document.class);
+        AggregationResults<Document> results = mongoTemplate.aggregate(aggregation, "products", Document.class);
 
         return results.getMappedResults().stream()
                 .map(doc -> doc.getString("name"))
