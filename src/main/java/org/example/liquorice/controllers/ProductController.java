@@ -56,7 +56,6 @@ public class ProductController {
 
     @GetMapping("/categories")
     public List<String> getCategories() {
-        List<String> categories = productService.getAllCategories();
         return productService.getAllCategories();
     }
 }
