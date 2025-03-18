@@ -16,7 +16,6 @@ public class Product {
     private String description;
     private double price;
     private byte[] image;
-    @DBRef
-    private List<Category> categories;
+    private List<String> categories;
     private int amountLeft;
 }

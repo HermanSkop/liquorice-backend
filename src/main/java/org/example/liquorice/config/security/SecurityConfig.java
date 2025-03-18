@@ -35,28 +35,22 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChainMain(HttpSecurity http, JwtLoggingFilter jwtLoggingFilter) throws Exception {
         return http
-                .securityMatcher(request -> !request.getRequestURI().contains("/auth/refresh"))
+                .securityMatcher(request -> !request.getRequestURI().startsWith(AppConfig.BASE_PATH + "/auth"))
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                AppConfig.BASE_PATH + "/auth/register",
-                                AppConfig.BASE_PATH + "/auth/login")
-                        .permitAll()
-                        .requestMatchers(AppConfig.BASE_PATH + "/**").authenticated()
-                        .anyRequest().authenticated())
+                            .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(jwt -> jwt.decoder(jwtDecoder()))
-                )
+                        .jwt(jwt -> jwt.decoder(jwtDecoder())))
                 .addFilterAfter(jwtLoggingFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChainRefresh(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChainAuth(HttpSecurity http) throws Exception {
         return http
-                .securityMatcher(AppConfig.BASE_PATH + "/auth/refresh")
+                .securityMatcher(AppConfig.BASE_PATH + "/auth/**")
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())

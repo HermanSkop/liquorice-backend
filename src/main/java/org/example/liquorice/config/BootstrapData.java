@@ -1,8 +1,6 @@
 package org.example.liquorice.config;
 
-import org.example.liquorice.models.Category;
 import org.example.liquorice.models.Product;
-import org.example.liquorice.repositories.CategoryRepository;
 import org.example.liquorice.repositories.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -18,17 +16,15 @@ import java.util.List;
 public class BootstrapData {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(BootstrapData.class);
     @Bean
-    CommandLineRunner initDatabase(CategoryRepository categoryRepo, ProductRepository productRepo) {
+    CommandLineRunner initDatabase(ProductRepository productRepo) {
         return args -> {
-            Category electronics = new Category(null, "Electronics");
-            Category accessories = new Category(null, "Accessories");
-            Category clothing = new Category(null, "Clothing");
-            Category home = new Category(null, "Home Goods");
-            Category sports = new Category(null, "Sports Equipment");
-            Category books = new Category(null, "Books");
-            Category food = new Category(null, "Food & Beverages");
-
-            categoryRepo.saveAll(List.of(electronics, accessories, clothing, home, sports, books, food));
+            String electronics = "Electronics";
+            String accessories = "Accessories";
+            String clothing = "Clothing";
+            String home = "Home Goods";
+            String sports = "Sports Equipment";
+            String books = "Books";
+            String food = "Food & Beverages";
 
             List<Product> products = new ArrayList<>();
 
