@@ -15,6 +15,7 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,18 +55,9 @@ public class ProductService {
     }
 
     public List<String> getAllCategories() {
-        TypedAggregation<Product> aggregation = Aggregation.newAggregation(
-                Product.class,
-                Aggregation.unwind("categories"),
-                Aggregation.group("categories").first("categories").as("category"),
-                Aggregation.project().and("category").as("name")
-        );
-
-        AggregationResults<Document> results = mongoTemplate.aggregate(aggregation, "products", Document.class);
-
-        return results.getMappedResults().stream()
-                .map(doc -> doc.getString("name"))
-                .collect(Collectors.toList());
+        return mongoTemplate.getCollection("products")
+                .distinct("categories", String.class)
+                .into(new ArrayList<>());
     }
 
     private ProductPreviewDto mapToProductPreviewDto(Product product) {
