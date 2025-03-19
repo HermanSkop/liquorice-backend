@@ -1,5 +1,6 @@
 package org.example.liquorice.config.security;
 
+import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.example.liquorice.config.AppConfig;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +24,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.Key;
 import java.time.Duration;
 import java.util.List;
 
@@ -33,7 +36,7 @@ public class SecurityConfig {
     private final JwtConfig jwtConfig;
 
     @Bean
-    public SecurityFilterChain securityFilterChainMain(HttpSecurity http, JwtLoggingFilter jwtLoggingFilter) throws Exception {
+    public SecurityFilterChain securityFilterChainMain(HttpSecurity http, JwtLoggingFilter jwtLoggingFilter, BlacklistTokenValidator blacklistValidator) throws Exception {
         return http
                 .securityMatcher(request -> !request.getRequestURI().startsWith(AppConfig.BASE_PATH + "/auth"))
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -42,7 +45,7 @@ public class SecurityConfig {
                             .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(jwt -> jwt.decoder(jwtDecoder())))
+                        .jwt(jwt -> jwt.decoder(jwtDecoder(blacklistValidator))))
                 .addFilterAfter(jwtLoggingFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
@@ -77,14 +80,20 @@ public class SecurityConfig {
     }
 
     @Bean
-    public JwtDecoder jwtDecoder() {
-        SecretKeySpec secretKey = new SecretKeySpec(jwtConfig.getSecretKey().getBytes(), "HmacSHA256");
-        NimbusJwtDecoder decoder = NimbusJwtDecoder.withSecretKey(secretKey).build();
+    public JwtDecoder jwtDecoder(BlacklistTokenValidator blacklistValidator) {
+        SecretKey signingKey = Keys.hmacShaKeyFor(jwtConfig.getSecretKey().getBytes());
+        NimbusJwtDecoder decoder = NimbusJwtDecoder.withSecretKey(signingKey).build();
 
-        OAuth2TokenValidator<Jwt> withClockSkew = new DelegatingOAuth2TokenValidator<>(
-                new JwtTimestampValidator(Duration.ofSeconds(AppConfig.JWT_ACCESS_TOKEN_SECONDS_TIMEOUT_SKEW))
+        OAuth2TokenValidator<Jwt> withClockSkew = new JwtTimestampValidator(
+                Duration.ofSeconds(AppConfig.JWT_ACCESS_TOKEN_SECONDS_TIMEOUT_SKEW)
         );
-        decoder.setJwtValidator(withClockSkew);
+
+        OAuth2TokenValidator<Jwt> validator = new DelegatingOAuth2TokenValidator<>(
+                withClockSkew,
+                blacklistValidator
+        );
+
+        decoder.setJwtValidator(validator);
 
         return decoder;
     }
