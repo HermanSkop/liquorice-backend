@@ -60,7 +60,7 @@ public class ProductService {
                 .into(new ArrayList<>());
     }
 
-    private ProductPreviewDto mapToProductPreviewDto(Product product) {
+    public ProductPreviewDto mapToProductPreviewDto(Product product) {
         ProductPreviewDto dto = modelMapper.map(product, ProductPreviewDto.class);
         if (product.getImage() != null) {
             dto.setImage(Base64.getEncoder().encodeToString(product.getImage()));

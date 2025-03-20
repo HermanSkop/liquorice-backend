@@ -25,8 +25,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.Key;
 import java.time.Duration;
 import java.util.List;
 

@@ -26,6 +26,26 @@ public class JwtService {
         return generateToken(authentication, jwtConfig.getAccessTokenExpiration());
     }
 
+    public String generateAccessToken(String refreshToken) {
+        try {
+            Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(refreshToken)
+                .getBody();
+
+            return Jwts.builder()
+                    .setSubject(claims.getSubject())
+                    .claim("scope", claims.get("scope", String.class))
+                    .setIssuedAt(Date.from(Instant.now()))
+                    .setExpiration(Date.from(Instant.now().plus(jwtConfig.getAccessTokenExpiration(), ChronoUnit.MILLIS)))
+                    .signWith(getSigningKey(), AppConfig.JWT_SIGNATURE_ALGORITHM)
+                    .compact();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public String generateRefreshToken(Authentication authentication) {
         return generateToken(authentication, jwtConfig.getRefreshTokenExpiration());
     }

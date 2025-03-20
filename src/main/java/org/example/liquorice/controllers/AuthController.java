@@ -49,16 +49,9 @@ public class AuthController {
 
     @PostMapping("/refresh")
     public ResponseEntity<AuthResponseDto> refresh(@RequestBody RefreshTokenRequestDto request) {
-        String refreshToken = request.getRefreshToken();
-        if (refreshToken == null || refreshToken.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String accessToken = jwtService.generateAccessToken(authentication);
-        String newRefreshToken = jwtService.generateRefreshToken(authentication);
-
-        return ResponseEntity.ok(new AuthResponseDto(accessToken, newRefreshToken));
+        return ResponseEntity.ok(
+                new AuthResponseDto(jwtService.generateAccessToken(request.getRefreshToken()), request.getRefreshToken())
+        );
     }
 
     @PostMapping("/register")

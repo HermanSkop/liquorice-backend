@@ -3,6 +3,7 @@ package org.example.liquorice.models.user;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.example.liquorice.config.AppConfig;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+@Data
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
