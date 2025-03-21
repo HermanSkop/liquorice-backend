@@ -1,5 +1,6 @@
 package org.example.liquorice.controllers;
 
+import jakarta.validation.Valid;
 import org.example.liquorice.config.AppConfig;
 import org.example.liquorice.dtos.AuthRequestDto;
 import org.example.liquorice.dtos.AuthResponseDto;
@@ -36,7 +37,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDto> login(@RequestBody AuthRequestDto request) {
+    public ResponseEntity<AuthResponseDto> login(@RequestBody @Valid AuthRequestDto request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
@@ -55,7 +56,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody AuthRequestDto request) {
+    public ResponseEntity<Void> register(@RequestBody @Valid AuthRequestDto request) {
         userService.registerCustomer(request.getEmail(), request.getPassword());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
