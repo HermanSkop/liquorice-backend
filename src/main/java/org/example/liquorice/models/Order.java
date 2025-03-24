@@ -22,6 +22,7 @@ public class Order {
     private LocalDateTime createdDate;
     private LocalDate estimatedDeliveryDate;
     private String paymentIntentId;
+    private Address deliveryAddress;
 
 
     public enum Status {

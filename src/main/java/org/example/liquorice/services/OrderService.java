@@ -4,6 +4,7 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import lombok.RequiredArgsConstructor;
 import org.example.liquorice.dtos.*;
+import org.example.liquorice.models.Address;
 import org.example.liquorice.models.Order;
 import org.example.liquorice.models.user.Customer;
 import org.example.liquorice.repositories.CustomerRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -48,7 +50,7 @@ public class OrderService {
         return mapToOrderResponseDto(orderRepository.save(order));
     }
 
-    public Order createOrder(String customerEmail, CartResponseDto cart, String paymentIntentId) {
+    public Order createOrder(String customerEmail, CartResponseDto cart, String paymentIntentId, AddressDto address) {
         Customer customer = customerRepository.findByEmail(customerEmail)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
 
@@ -63,6 +65,7 @@ public class OrderService {
                                 CartItemDto::getQuantity)
                         )
                 )
+                .deliveryAddress(modelMapper.map(address, Address.class))
                 .paymentIntentId(paymentIntentId)
                 .estimatedDeliveryDate(LocalDate.now().plusDays(7))
                 .build();
@@ -93,5 +96,24 @@ public class OrderService {
                         .collect(Collectors.toList())
         );
         return dto;
+    }
+
+    public List<OrderResponseDto> getOrdersForCustomer(String username) {
+        Customer customer = customerRepository.findByEmail(username)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+
+        List<Order> orders = orderRepository.findAllByCustomerId(customer.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+
+        return orders.stream()
+                .map(this::mapToOrderResponseDto)
+                .toList();
+    }
+
+    public PaymentIntent getPaymentIntent(String orderId) throws StripeException {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+
+        return PaymentIntent.retrieve(order.getPaymentIntentId());
     }
 }

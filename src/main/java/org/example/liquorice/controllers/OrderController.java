@@ -4,15 +4,14 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import lombok.RequiredArgsConstructor;
 import org.example.liquorice.config.AppConfig;
-import org.example.liquorice.dtos.CartResponseDto;
-import org.example.liquorice.dtos.ClientIntentResponseDto;
-import org.example.liquorice.dtos.OrderRequestDto;
-import org.example.liquorice.dtos.OrderResponseDto;
+import org.example.liquorice.dtos.*;
 import org.example.liquorice.services.CartService;
 import org.example.liquorice.services.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,8 +26,8 @@ public class OrderController {
         return ResponseEntity.ok(order);
     }
 
-    @GetMapping("/init-order")
-    public ResponseEntity<ClientIntentResponseDto> initOrder(Authentication authentication) throws StripeException {
+    @PostMapping
+    public ResponseEntity<ClientIntentResponseDto> initOrder(Authentication authentication, @RequestBody AddressDto addressDto) throws StripeException {
         CartResponseDto cart = cartService.getCart(authentication.getName());
         double totalAmount = cartService.getTotalPrice(cart);
 
@@ -36,7 +35,19 @@ public class OrderController {
 
         return ResponseEntity.ok(new ClientIntentResponseDto(
                 paymentIntent.getClientSecret(),
-                orderService.createOrder(authentication.getName(), cart, paymentIntent.getId()).getId())
+                orderService.createOrder(authentication.getName(), cart, paymentIntent.getId(), addressDto).getId())
         );
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OrderResponseDto>> getOrders(Authentication authentication) {
+        List<OrderResponseDto> orders = orderService.getOrdersForCustomer(authentication.getName());
+        return ResponseEntity.ok(orders);
+    }
+
+    @GetMapping("/{orderId}/payment-intent")
+    public ResponseEntity<ClientIntentResponseDto> getPaymentIntent(@PathVariable String orderId) throws StripeException {
+        PaymentIntent paymentIntent = orderService.getPaymentIntent(orderId);
+        return ResponseEntity.ok(new ClientIntentResponseDto(paymentIntent.getClientSecret(), orderId));
     }
 }
