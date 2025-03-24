@@ -10,10 +10,8 @@ import org.example.liquorice.models.user.User;
 import org.example.liquorice.repositories.CartRepository;
 import org.example.liquorice.repositories.ProductRepository;
 import org.example.liquorice.repositories.UserRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -23,7 +21,6 @@ public class CartService {
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
     private final ProductService productService;
 
     public CartResponseDto getCart(String userEmail) {
@@ -53,5 +50,15 @@ public class CartService {
         existingCart.setUserId(userId);
         existingCart.setProductQuantities(cart.getProductQuantities());
         cartRepository.save(existingCart);
+    }
+
+    public double getTotalPrice(CartResponseDto cart) {
+        return cart.getCartItems()
+                .stream()
+                .mapToDouble(cartItem -> {
+                    ProductPreviewDto product = cartItem.getProduct();
+                    return product.getPrice() * cartItem.getQuantity();
+                })
+                .sum();
     }
 }

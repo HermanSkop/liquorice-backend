@@ -1,9 +1,9 @@
-package org.example.liquorice.models;
+package org.example.liquorice.dtos;
 
 import lombok.Data;
 
 @Data
-public class Address {
+public class AddressDto {
     private String city;
     private String country = "US";
     private String line1;

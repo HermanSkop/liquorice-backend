@@ -5,7 +5,6 @@ import org.example.liquorice.config.AppConfig;
 import org.example.liquorice.dtos.AuthRequestDto;
 import org.example.liquorice.dtos.AuthResponseDto;
 import org.example.liquorice.dtos.RefreshTokenRequestDto;
-import org.example.liquorice.models.Address;
 import org.example.liquorice.services.JwtService;
 import org.example.liquorice.services.TokenBlacklistService;
 import org.example.liquorice.services.UserService;
@@ -14,11 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.util.Map;
 
 @RestController
@@ -38,9 +34,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDto> login(@RequestBody @Valid AuthRequestDto request) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
-        );
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
         String accessToken = jwtService.generateAccessToken(authentication);
         String refreshToken = jwtService.generateRefreshToken(authentication);
@@ -50,9 +44,7 @@ public class AuthController {
 
     @PostMapping("/refresh")
     public ResponseEntity<AuthResponseDto> refresh(@RequestBody RefreshTokenRequestDto request) {
-        return ResponseEntity.ok(
-                new AuthResponseDto(jwtService.generateAccessToken(request.getRefreshToken()), request.getRefreshToken())
-        );
+        return ResponseEntity.ok(new AuthResponseDto(jwtService.generateAccessToken(request.getRefreshToken()), request.getRefreshToken()));
     }
 
     @PostMapping("/register")

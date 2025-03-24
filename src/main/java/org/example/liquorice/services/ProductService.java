@@ -1,7 +1,6 @@
 package org.example.liquorice.services;
 
 import lombok.RequiredArgsConstructor;
-import org.bson.Document;
 import org.example.liquorice.dtos.PagedResponse;
 import org.example.liquorice.dtos.ProductPreviewDto;
 import org.example.liquorice.models.Product;
@@ -10,9 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
