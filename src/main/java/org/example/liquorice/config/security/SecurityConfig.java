@@ -46,7 +46,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChainMain(HttpSecurity http, JwtLoggingFilter jwtLoggingFilter, BlacklistTokenValidator blacklistValidator) throws Exception {
+    public SecurityFilterChain securityFilterChainMain(HttpSecurity http, JwtLoggingFilter jwtLoggingFilter) throws Exception {
         return http
                 .securityMatcher(request -> request.getRequestURI().startsWith(AppConfig.BASE_PATH))
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
