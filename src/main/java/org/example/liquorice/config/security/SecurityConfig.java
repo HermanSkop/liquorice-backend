@@ -32,21 +32,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final JwtConfig jwtConfig;
-
-    @Bean
-    public SecurityFilterChain securityFilterChainMain(HttpSecurity http, JwtLoggingFilter jwtLoggingFilter, BlacklistTokenValidator blacklistValidator) throws Exception {
-        return http
-                .securityMatcher(request -> !request.getRequestURI().startsWith(AppConfig.BASE_PATH + "/auth"))
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
-                            .anyRequest().authenticated())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(jwt -> jwt.decoder(jwtDecoder(blacklistValidator))))
-                .addFilterAfter(jwtLoggingFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
-    }
+    private final BlacklistTokenValidator blacklistTokenValidator;
 
     @Bean
     public SecurityFilterChain securityFilterChainAuth(HttpSecurity http) throws Exception {
@@ -56,6 +42,20 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .build();
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChainMain(HttpSecurity http, JwtLoggingFilter jwtLoggingFilter, BlacklistTokenValidator blacklistValidator) throws Exception {
+        return http
+                .securityMatcher(request -> request.getRequestURI().startsWith(AppConfig.BASE_PATH))
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwt -> jwt.decoder(jwtDecoder())))
+                .addFilterAfter(jwtLoggingFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
@@ -78,7 +78,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public JwtDecoder jwtDecoder(BlacklistTokenValidator blacklistValidator) {
+    public JwtDecoder jwtDecoder() {
         SecretKey signingKey = Keys.hmacShaKeyFor(jwtConfig.getSecretKey().getBytes());
         NimbusJwtDecoder decoder = NimbusJwtDecoder.withSecretKey(signingKey).build();
 
@@ -88,7 +88,7 @@ public class SecurityConfig {
 
         OAuth2TokenValidator<Jwt> validator = new DelegatingOAuth2TokenValidator<>(
                 withClockSkew,
-                blacklistValidator
+                blacklistTokenValidator
         );
 
         decoder.setJwtValidator(validator);
