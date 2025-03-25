@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(AppConfig.BASE_PATH + "/orders")
@@ -21,13 +19,13 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/complete")
-    public ResponseEntity<OrderResponseDto> createOrder(Authentication authentication, @RequestBody OrderRequestDto orderRequest) throws StripeException {
+    public ResponseEntity<OrderResponseDto> completeOrder(Authentication authentication, @RequestBody OrderRequestDto orderRequest) throws StripeException {
         OrderResponseDto order = orderService.submitOrder(authentication.getName(), orderRequest);
         return ResponseEntity.ok(order);
     }
 
     @PostMapping
-    public ResponseEntity<ClientIntentResponseDto> initOrder(Authentication authentication, @RequestBody AddressDto addressDto) throws StripeException {
+    public ResponseEntity<ClientIntentResponseDto> createOrder(Authentication authentication, @RequestBody AddressDto addressDto) throws StripeException {
         CartResponseDto cart = cartService.getCart(authentication.getName());
         double totalAmount = cartService.getTotalPrice(cart);
 
@@ -37,12 +35,6 @@ public class OrderController {
                 paymentIntent.getClientSecret(),
                 orderService.createOrder(authentication.getName(), cart, paymentIntent.getId(), addressDto).getId())
         );
-    }
-
-    @GetMapping
-    public ResponseEntity<List<OrderResponseDto>> getOrders(Authentication authentication) {
-        List<OrderResponseDto> orders = orderService.getOrdersForCustomer(authentication.getName());
-        return ResponseEntity.ok(orders);
     }
 
     @GetMapping("/{orderId}/payment-intent")
