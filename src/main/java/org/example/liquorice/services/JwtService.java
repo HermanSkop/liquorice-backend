@@ -15,6 +15,7 @@ import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +38,7 @@ public class JwtService {
             return Jwts.builder()
                     .setSubject(claims.getSubject())
                     .claim("scope", claims.get("scope", String.class))
+                    .setId(UUID.randomUUID().toString())
                     .setIssuedAt(Date.from(Instant.now()))
                     .setExpiration(Date.from(Instant.now().plus(jwtConfig.getAccessTokenExpiration(), ChronoUnit.MILLIS)))
                     .signWith(getSigningKey(), AppConfig.JWT_SIGNATURE_ALGORITHM)

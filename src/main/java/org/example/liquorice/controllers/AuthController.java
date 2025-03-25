@@ -44,7 +44,8 @@ public class AuthController {
 
     @PostMapping("/refresh")
     public ResponseEntity<AuthResponseDto> refresh(@RequestBody RefreshTokenRequestDto request) {
-        return ResponseEntity.ok(new AuthResponseDto(jwtService.generateAccessToken(request.getRefreshToken()), request.getRefreshToken()));
+        String accessToken = jwtService.generateAccessToken(request.getRefreshToken());
+        return ResponseEntity.ok(new AuthResponseDto(accessToken, request.getRefreshToken()));
     }
 
     @PostMapping("/register")
