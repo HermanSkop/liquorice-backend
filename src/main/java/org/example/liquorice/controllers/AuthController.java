@@ -44,7 +44,7 @@ public class AuthController {
 
     @PostMapping("/refresh")
     public ResponseEntity<AuthResponseDto> refresh(@RequestBody RefreshTokenRequestDto request) {
-        if (jwtService.getTokenRemainingLifetimeMillis(request.getRefreshToken()) < System.currentTimeMillis()) {
+        if (jwtService.getTokenRemainingLifetimeMillis(request.getRefreshToken()) <= 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
