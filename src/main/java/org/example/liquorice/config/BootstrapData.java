@@ -1,10 +1,14 @@
 package org.example.liquorice.config;
 
 import org.example.liquorice.models.Product;
+import org.example.liquorice.models.user.User;
 import org.example.liquorice.repositories.ProductRepository;
+import org.example.liquorice.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,8 +20,10 @@ import java.util.List;
 public class BootstrapData {
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(BootstrapData.class);
     @Bean
-    CommandLineRunner initDatabase(ProductRepository productRepo) {
+    CommandLineRunner initDatabase(ProductRepository productRepo, UserRepository userRepository, PasswordEncoder passwordEncoder, MongoTemplate mongoTemplate) {
         return args -> {
+            mongoTemplate.getDb().drop();
+
             String electronics = "Electronics";
             String accessories = "Accessories";
             String clothing = "Clothing";
@@ -209,6 +215,9 @@ public class BootstrapData {
             products.add(hardDrive);
 
             productRepo.saveAll(products);
+
+            User admin = User.builder().email("admin@admin.com").role(User.Role.ADMIN).password(passwordEncoder.encode("Admin12$")).build();
+            userRepository.save(admin);
         };
     }
 

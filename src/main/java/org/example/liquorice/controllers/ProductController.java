@@ -26,7 +26,7 @@ public class ProductController {
 
     @GetMapping
     public PagedResponse<ProductPreviewDto> getProducts(
-            @PageableDefault(page = 0, size = 10) Pageable pageable,
+            @PageableDefault Pageable pageable,
             @RequestParam(required = false) String search,
             @RequestParam(required = false) List<String> categories,
             @RequestParam(required = false) String sort) {

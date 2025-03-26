@@ -6,10 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.example.liquorice.dtos.*;
 import org.example.liquorice.models.Address;
 import org.example.liquorice.models.Order;
-import org.example.liquorice.models.user.Customer;
-import org.example.liquorice.repositories.CustomerRepository;
+import org.example.liquorice.models.user.User;
 import org.example.liquorice.repositories.OrderRepository;
 import org.example.liquorice.repositories.ProductRepository;
+import org.example.liquorice.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class OrderService {
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final OrderRepository orderRepository;
     private final CartService cartService;
@@ -31,7 +31,7 @@ public class OrderService {
     private final ProductRepository productRepository;
 
     public OrderResponseDto submitOrder(String customerEmail, OrderRequestDto orderRequest) throws StripeException {
-        Customer customer = customerRepository.findByEmail(customerEmail)
+        User customer = userRepository.findByEmail(customerEmail)
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
 
         Order order = orderRepository.findById(orderRequest.getOrderId())
@@ -51,7 +51,7 @@ public class OrderService {
     }
 
     public Order createOrder(String customerEmail, CartResponseDto cart, String paymentIntentId, AddressDto address) {
-        Customer customer = customerRepository.findByEmail(customerEmail)
+        User customer = userRepository.findByEmail(customerEmail)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
 
         Order order = Order.builder()
@@ -99,7 +99,7 @@ public class OrderService {
     }
 
     public List<OrderResponseDto> getOrdersForCustomer(String username) {
-        Customer customer = customerRepository.findByEmail(username)
+        User customer = userRepository.findByEmail(username)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
 
         List<Order> orders = orderRepository.findAllByCustomerId(customer.getId())
