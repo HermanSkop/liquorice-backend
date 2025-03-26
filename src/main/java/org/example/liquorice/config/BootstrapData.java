@@ -40,6 +40,7 @@ public class BootstrapData {
             gamepad.setPrice(59.99);
             gamepad.setCategories(List.of(electronics, accessories));
             gamepad.setAmountLeft(50);
+            gamepad.setImage(loadImage("src/main/resources/bootstrap/gamepad.jpg"));
             products.add(gamepad);
 
 
@@ -49,6 +50,7 @@ public class BootstrapData {
             smartphone.setPrice(899.99);
             smartphone.setCategories(List.of(electronics));
             smartphone.setAmountLeft(30);
+            smartphone.setImage(loadImage("src/main/resources/bootstrap/smartphone.jpg"));
             products.add(smartphone);
 
 
@@ -58,6 +60,7 @@ public class BootstrapData {
             laptop.setPrice(1299.99);
             laptop.setCategories(List.of(electronics));
             laptop.setAmountLeft(20);
+            laptop.setImage(loadImage("src/main/resources/bootstrap/laptop.jpg"));
             products.add(laptop);
 
 
@@ -67,6 +70,7 @@ public class BootstrapData {
             headphones.setPrice(199.99);
             headphones.setCategories(List.of(electronics, accessories));
             headphones.setAmountLeft(45);
+            headphones.setImage(loadImage("src/main/resources/bootstrap/headphones.jpg"));
             products.add(headphones);
 
 
@@ -76,6 +80,7 @@ public class BootstrapData {
             tshirt.setPrice(24.99);
             tshirt.setCategories(List.of(clothing));
             tshirt.setAmountLeft(100);
+            tshirt.setImage(loadImage("src/main/resources/bootstrap/tshirt.jpg"));
             products.add(tshirt);
 
 
@@ -85,6 +90,7 @@ public class BootstrapData {
             smartWatch.setPrice(149.99);
             smartWatch.setCategories(List.of(electronics, accessories, sports));
             smartWatch.setAmountLeft(35);
+            smartWatch.setImage(loadImage("src/main/resources/bootstrap/smart.jpg"));
             products.add(smartWatch);
 
 
@@ -94,6 +100,7 @@ public class BootstrapData {
             coffeeMaker.setPrice(89.99);
             coffeeMaker.setCategories(List.of(home));
             coffeeMaker.setAmountLeft(25);
+            coffeeMaker.setImage(loadImage("src/main/resources/bootstrap/coffeemaker.jpg"));
             products.add(coffeeMaker);
 
 
@@ -103,6 +110,7 @@ public class BootstrapData {
             yogaMat.setPrice(45.99);
             yogaMat.setCategories(List.of(sports));
             yogaMat.setAmountLeft(60);
+            yogaMat.setImage(loadImage("src/main/resources/bootstrap/yogamat.jpg"));
             products.add(yogaMat);
 
 
@@ -122,6 +130,7 @@ public class BootstrapData {
             coffee.setPrice(29.99);
             coffee.setCategories(List.of(food));
             coffee.setAmountLeft(40);
+            coffee.setImage(loadImage("src/main/resources/bootstrap/coffee.jpg"));
             products.add(coffee);
 
 
@@ -131,6 +140,7 @@ public class BootstrapData {
             speaker.setPrice(79.99);
             speaker.setCategories(List.of(electronics));
             speaker.setAmountLeft(55);
+            speaker.setImage(loadImage("src/main/resources/bootstrap/speaker.jpg"));
             products.add(speaker);
 
 
@@ -140,6 +150,7 @@ public class BootstrapData {
             shoes.setPrice(129.99);
             shoes.setCategories(List.of(clothing, sports));
             shoes.setAmountLeft(30);
+            shoes.setImage(loadImage("src/main/resources/bootstrap/shoes.jpg"));
             products.add(shoes);
 
 
@@ -149,6 +160,7 @@ public class BootstrapData {
             homeHub.setPrice(149.99);
             homeHub.setCategories(List.of(electronics, home));
             homeHub.setAmountLeft(20);
+            homeHub.setImage(loadImage("src/main/resources/bootstrap/home.jpg"));
             products.add(homeHub);
 
 
@@ -158,6 +170,7 @@ public class BootstrapData {
             cookBook.setPrice(34.99);
             cookBook.setCategories(List.of(books, food));
             cookBook.setAmountLeft(45);
+            cookBook.setImage(loadImage("src/main/resources/bootstrap/cookbook.jpg"));
             products.add(cookBook);
 
 
@@ -167,6 +180,7 @@ public class BootstrapData {
             lamp.setPrice(49.99);
             lamp.setCategories(List.of(home));
             lamp.setAmountLeft(65);
+            lamp.setImage(loadImage("src/main/resources/bootstrap/lamp.jpg"));
             products.add(lamp);
 
 
@@ -176,6 +190,7 @@ public class BootstrapData {
             phoneCase.setPrice(24.99);
             phoneCase.setCategories(List.of(accessories));
             phoneCase.setAmountLeft(80);
+            phoneCase.setImage(loadImage("src/main/resources/bootstrap/case.jpg"));
             products.add(phoneCase);
 
 
@@ -185,6 +200,7 @@ public class BootstrapData {
             fitTracker.setPrice(99.99);
             fitTracker.setCategories(List.of(electronics, sports));
             fitTracker.setAmountLeft(40);
+            fitTracker.setImage(loadImage("src/main/resources/bootstrap/watch.jpg"));
             products.add(fitTracker);
 
 
@@ -194,6 +210,7 @@ public class BootstrapData {
             chocolate.setPrice(39.99);
             chocolate.setCategories(List.of(food));
             chocolate.setAmountLeft(50);
+            chocolate.setImage(loadImage("src/main/resources/bootstrap/chocolate.jpg"));
             products.add(chocolate);
 
 
@@ -203,6 +220,7 @@ public class BootstrapData {
             jacket.setPrice(179.99);
             jacket.setCategories(List.of(clothing));
             jacket.setAmountLeft(25);
+            jacket.setImage(loadImage("src/main/resources/bootstrap/jacket.jpg"));
             products.add(jacket);
 
 
@@ -212,6 +230,7 @@ public class BootstrapData {
             hardDrive.setPrice(89.99);
             hardDrive.setCategories(List.of(electronics, accessories));
             hardDrive.setAmountLeft(30);
+            hardDrive.setImage(loadImage("src/main/resources/bootstrap/hd.jpg"));
             products.add(hardDrive);
 
             productRepo.saveAll(products);
