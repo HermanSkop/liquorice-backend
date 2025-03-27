@@ -63,4 +63,10 @@ public class ProductService {
         }
         return dto;
     }
+
+    public ProductPreviewDto setAvailable(String productId, boolean isAvailable) {
+        Product product = productRepository.findById(productId).orElseThrow(() -> new IllegalArgumentException("Product not found"));
+        product.setAvailable(isAvailable);
+        return modelMapper.map(productRepository.save(product), ProductPreviewDto.class);
+    }
 }

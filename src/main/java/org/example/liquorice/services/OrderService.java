@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.liquorice.dtos.*;
 import org.example.liquorice.models.Address;
 import org.example.liquorice.models.Order;
-import org.example.liquorice.models.user.User;
+import org.example.liquorice.models.User;
 import org.example.liquorice.repositories.OrderRepository;
 import org.example.liquorice.repositories.ProductRepository;
 import org.example.liquorice.repositories.UserRepository;

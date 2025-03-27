@@ -19,4 +19,5 @@ public class ProductPreviewDto {
     private List<String> categories;
     private String image;
     private int amountLeft;
+    private boolean isAvailable;
 }

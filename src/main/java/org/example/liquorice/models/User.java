@@ -1,4 +1,4 @@
-package org.example.liquorice.models.user;
+package org.example.liquorice.models;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;

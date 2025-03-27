@@ -1,7 +1,7 @@
 package org.example.liquorice.config.security;
 
 import lombok.RequiredArgsConstructor;
-import org.example.liquorice.models.user.User;
+import org.example.liquorice.models.User;
 import org.example.liquorice.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

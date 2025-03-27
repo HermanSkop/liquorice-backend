@@ -1,7 +1,7 @@
 package org.example.liquorice.repositories;
 
 import jakarta.validation.constraints.Email;
-import org.example.liquorice.models.user.User;
+import org.example.liquorice.models.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;

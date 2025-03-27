@@ -1,7 +1,7 @@
 package org.example.liquorice.config;
 
 import org.example.liquorice.models.Product;
-import org.example.liquorice.models.user.User;
+import org.example.liquorice.models.User;
 import org.example.liquorice.repositories.ProductRepository;
 import org.example.liquorice.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;

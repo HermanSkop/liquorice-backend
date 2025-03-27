@@ -6,12 +6,15 @@ import org.example.liquorice.dtos.CartRequestDto;
 import org.example.liquorice.dtos.CartResponseDto;
 import org.example.liquorice.dtos.ProductPreviewDto;
 import org.example.liquorice.models.Cart;
-import org.example.liquorice.models.user.User;
+import org.example.liquorice.models.Product;
+import org.example.liquorice.models.User;
 import org.example.liquorice.repositories.CartRepository;
 import org.example.liquorice.repositories.ProductRepository;
 import org.example.liquorice.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -46,10 +49,28 @@ public class CartService {
         String userId = userRepository.findByEmail(userEmail)
                 .map(User::getId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        List<Product> products = fetchProducts(cart.getProductQuantities());
+        products.forEach(product -> {
+            if (product.getAmountLeft() < cart.getProductQuantities().get(product.getId())) {
+                throw new IllegalArgumentException("Not enough product available");
+            } else if (!product.isAvailable()) {
+                throw new IllegalArgumentException("Product is not available");
+            }
+        });
+
         Cart existingCart = cartRepository.findById(userId).orElse(new Cart());
         existingCart.setUserId(userId);
         existingCart.setProductQuantities(cart.getProductQuantities());
         cartRepository.save(existingCart);
+    }
+
+    private List<Product> fetchProducts(Map<String, Integer> productQuantities) {
+        return productQuantities.keySet()
+                .stream()
+                .map(productId -> productRepository.findById(productId).orElse(null))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
     public double getTotalPrice(CartResponseDto cart) {

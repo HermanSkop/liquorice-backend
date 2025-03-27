@@ -7,6 +7,7 @@ import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.example.liquorice.config.AppConfig;
 import org.example.liquorice.config.security.JwtConfig;
+import org.example.liquorice.models.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ public class JwtService {
 
             return Jwts.builder()
                     .setSubject(claims.getSubject())
-                    .claim("scope", claims.get("scope", String.class))
+                    .claim("role", claims.get("role", String.class))
                     .setId(UUID.randomUUID().toString())
                     .setIssuedAt(Date.from(Instant.now()))
                     .setExpiration(Date.from(Instant.now().plus(jwtConfig.getAccessTokenExpiration(), ChronoUnit.MILLIS)))
@@ -53,14 +54,12 @@ public class JwtService {
     }
 
     private String generateToken(Authentication authentication, long expiration) {
+        User user = (User) authentication.getPrincipal();
         Instant now = Instant.now();
-        String scope = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(" "));
 
         return Jwts.builder()
                 .setSubject(authentication.getName())
-                .claim("scope", scope)
+                .claim("role", user.getRole())
                 .setIssuedAt(Date.from(now))
                 .setExpiration(Date.from(now.plus(expiration, ChronoUnit.MILLIS)))
                 .signWith(getSigningKey(), AppConfig.JWT_SIGNATURE_ALGORITHM)

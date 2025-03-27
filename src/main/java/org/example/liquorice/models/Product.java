@@ -2,7 +2,6 @@ package org.example.liquorice.models;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -18,4 +17,5 @@ public class Product {
     private byte[] image;
     private List<String> categories;
     private int amountLeft;
+    private boolean isAvailable;
 }

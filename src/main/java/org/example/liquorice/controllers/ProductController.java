@@ -8,10 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -46,5 +44,10 @@ public class ProductController {
     @GetMapping("/categories")
     public List<String> getCategories() {
         return productService.getAllCategories();
+    }
+
+    @PatchMapping("/{id}/available")
+    public ResponseEntity<ProductPreviewDto> setAvailable(@RequestBody boolean isAvailable, @PathVariable String id) {
+        return ResponseEntity.ok(productService.setAvailable(id, isAvailable));
     }
 }
