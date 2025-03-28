@@ -116,4 +116,29 @@ public class OrderService {
 
         return PaymentIntent.retrieve(order.getPaymentIntentId());
     }
+
+    public List<OrderResponseDto> getOrders() {
+        List<Order> orders = orderRepository.findAll();
+        return orders.stream()
+                .map(this::mapToOrderResponseDto)
+                .toList();
+    }
+
+    public OrderResponseDto refundOrder(String orderId) throws StripeException {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+
+        if (order.getStatus() != Order.Status.DELIVERED) {
+            throw new IllegalStateException("Order is not eligible for refund");
+        }
+
+        Map<String, Object> refundParams = new HashMap<>();
+        refundParams.put("payment_intent", order.getPaymentIntentId());
+        com.stripe.model.Refund.create(refundParams);
+
+        order.setStatus(Order.Status.REFUNDED);
+        orderRepository.save(order);
+
+        return mapToOrderResponseDto(order);
+    }
 }

@@ -17,7 +17,15 @@ public class GlobalExceptionHandler {
         Map<String, Object> body = new HashMap<>();
         body.put("message", "Payment processing error: " + ex.getMessage());
         body.put("error", ex.getClass().getSimpleName());
-        body.put("status", HttpStatus.BAD_REQUEST.value());
+
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("message", "Invalid arguments passed: " + ex.getMessage());
+        body.put("error", ex.getClass().getSimpleName());
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }

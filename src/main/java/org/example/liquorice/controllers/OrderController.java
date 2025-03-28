@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(AppConfig.BASE_PATH + "/orders")
@@ -41,5 +43,16 @@ public class OrderController {
     public ResponseEntity<ClientIntentResponseDto> getPaymentIntent(@PathVariable String orderId) throws StripeException {
         PaymentIntent paymentIntent = orderService.getPaymentIntent(orderId);
         return ResponseEntity.ok(new ClientIntentResponseDto(paymentIntent.getClientSecret(), orderId));
+    }
+
+    @PatchMapping("/{orderId}/refund")
+    public ResponseEntity<OrderResponseDto> refundOrder(@PathVariable String orderId) throws StripeException {
+        OrderResponseDto order = orderService.refundOrder(orderId);
+        return ResponseEntity.ok(order);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OrderResponseDto>> getOrders() {
+        return ResponseEntity.ok(orderService.getOrders());
     }
 }

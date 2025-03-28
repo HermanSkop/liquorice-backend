@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.liquorice.config.AppConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,7 +19,6 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtTimestampValidator;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -53,8 +53,11 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(AppConfig.BASE_PATH + "/products/{id}/available").hasRole("ADMIN")
-                        .requestMatchers(AppConfig.BASE_PATH + "/cart/**", AppConfig.BASE_PATH + "/cart/**").hasRole("CUSTOMER")
+                        .requestMatchers(HttpMethod.PATCH,
+                                AppConfig.BASE_PATH + "/products/{id}/available",
+                                AppConfig.BASE_PATH + "/orders/{id}/refund")
+                            .hasRole("ADMIN")
+                        .requestMatchers(AppConfig.BASE_PATH + "/cart/**").hasRole("CUSTOMER")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

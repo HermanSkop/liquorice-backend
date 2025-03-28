@@ -41,6 +41,7 @@ public class BootstrapData {
             gamepad.setCategories(List.of(electronics, accessories));
             gamepad.setAmountLeft(50);
             gamepad.setImage(loadImage("src/main/resources/bootstrap/gamepad.jpg"));
+            gamepad.setAvailable(true);
             products.add(gamepad);
 
 
@@ -51,6 +52,7 @@ public class BootstrapData {
             smartphone.setCategories(List.of(electronics));
             smartphone.setAmountLeft(30);
             smartphone.setImage(loadImage("src/main/resources/bootstrap/smartphone.jpg"));
+            smartphone.setAvailable(true);
             products.add(smartphone);
 
 
@@ -61,6 +63,7 @@ public class BootstrapData {
             laptop.setCategories(List.of(electronics));
             laptop.setAmountLeft(20);
             laptop.setImage(loadImage("src/main/resources/bootstrap/laptop.jpg"));
+            laptop.setAvailable(true);
             products.add(laptop);
 
 
@@ -71,6 +74,7 @@ public class BootstrapData {
             headphones.setCategories(List.of(electronics, accessories));
             headphones.setAmountLeft(45);
             headphones.setImage(loadImage("src/main/resources/bootstrap/headphones.jpg"));
+            headphones.setAvailable(true);
             products.add(headphones);
 
 
@@ -81,6 +85,7 @@ public class BootstrapData {
             tshirt.setCategories(List.of(clothing));
             tshirt.setAmountLeft(100);
             tshirt.setImage(loadImage("src/main/resources/bootstrap/tshirt.jpg"));
+            tshirt.setAvailable(true);
             products.add(tshirt);
 
 
@@ -91,6 +96,7 @@ public class BootstrapData {
             smartWatch.setCategories(List.of(electronics, accessories, sports));
             smartWatch.setAmountLeft(35);
             smartWatch.setImage(loadImage("src/main/resources/bootstrap/smart.jpg"));
+            smartWatch.setAvailable(true);
             products.add(smartWatch);
 
 
@@ -101,6 +107,7 @@ public class BootstrapData {
             coffeeMaker.setCategories(List.of(home));
             coffeeMaker.setAmountLeft(25);
             coffeeMaker.setImage(loadImage("src/main/resources/bootstrap/coffeemaker.jpg"));
+            coffeeMaker.setAvailable(true);
             products.add(coffeeMaker);
 
 
@@ -109,8 +116,9 @@ public class BootstrapData {
             yogaMat.setDescription("Non-slip yoga mat perfect for all types of yoga");
             yogaMat.setPrice(45.99);
             yogaMat.setCategories(List.of(sports));
-            yogaMat.setAmountLeft(60);
+            yogaMat.setAmountLeft(0);
             yogaMat.setImage(loadImage("src/main/resources/bootstrap/yogamat.jpg"));
+            yogaMat.setAvailable(true);
             products.add(yogaMat);
 
 
@@ -121,6 +129,7 @@ public class BootstrapData {
             novel.setCategories(List.of(books));
             novel.setAmountLeft(75);
             novel.setImage(loadImage("src/main/resources/bootstrap/novel.jpg"));
+            novel.setAvailable(true);
             products.add(novel);
 
 
@@ -131,6 +140,7 @@ public class BootstrapData {
             coffee.setCategories(List.of(food));
             coffee.setAmountLeft(40);
             coffee.setImage(loadImage("src/main/resources/bootstrap/coffee.jpg"));
+            coffee.setAvailable(true);
             products.add(coffee);
 
 
@@ -141,6 +151,7 @@ public class BootstrapData {
             speaker.setCategories(List.of(electronics));
             speaker.setAmountLeft(55);
             speaker.setImage(loadImage("src/main/resources/bootstrap/speaker.jpg"));
+            speaker.setAvailable(true);
             products.add(speaker);
 
 
@@ -151,6 +162,7 @@ public class BootstrapData {
             shoes.setCategories(List.of(clothing, sports));
             shoes.setAmountLeft(30);
             shoes.setImage(loadImage("src/main/resources/bootstrap/shoes.jpg"));
+            shoes.setAvailable(true);
             products.add(shoes);
 
 
@@ -161,6 +173,7 @@ public class BootstrapData {
             homeHub.setCategories(List.of(electronics, home));
             homeHub.setAmountLeft(20);
             homeHub.setImage(loadImage("src/main/resources/bootstrap/home.jpg"));
+            homeHub.setAvailable(true);
             products.add(homeHub);
 
 
@@ -171,6 +184,7 @@ public class BootstrapData {
             cookBook.setCategories(List.of(books, food));
             cookBook.setAmountLeft(45);
             cookBook.setImage(loadImage("src/main/resources/bootstrap/cookbook.jpg"));
+            cookBook.setAvailable(true);
             products.add(cookBook);
 
 
@@ -181,6 +195,7 @@ public class BootstrapData {
             lamp.setCategories(List.of(home));
             lamp.setAmountLeft(65);
             lamp.setImage(loadImage("src/main/resources/bootstrap/lamp.jpg"));
+            lamp.setAvailable(true);
             products.add(lamp);
 
 
@@ -191,6 +206,7 @@ public class BootstrapData {
             phoneCase.setCategories(List.of(accessories));
             phoneCase.setAmountLeft(80);
             phoneCase.setImage(loadImage("src/main/resources/bootstrap/case.jpg"));
+            phoneCase.setAvailable(true);
             products.add(phoneCase);
 
 
@@ -201,6 +217,7 @@ public class BootstrapData {
             fitTracker.setCategories(List.of(electronics, sports));
             fitTracker.setAmountLeft(40);
             fitTracker.setImage(loadImage("src/main/resources/bootstrap/watch.jpg"));
+            fitTracker.setAvailable(true);
             products.add(fitTracker);
 
 
@@ -211,6 +228,7 @@ public class BootstrapData {
             chocolate.setCategories(List.of(food));
             chocolate.setAmountLeft(50);
             chocolate.setImage(loadImage("src/main/resources/bootstrap/chocolate.jpg"));
+            chocolate.setAvailable(true);
             products.add(chocolate);
 
 
@@ -235,7 +253,7 @@ public class BootstrapData {
 
             productRepo.saveAll(products);
 
-            User admin = User.builder().email("admin@admin.com").role(User.Role.ADMIN).password(passwordEncoder.encode("Admin12$")).build();
+            User admin = User.builder().email("Admin1@a.a").role(User.Role.ADMIN).password(passwordEncoder.encode("Admin1@a.a")).build();
             userRepository.save(admin);
         };
     }
