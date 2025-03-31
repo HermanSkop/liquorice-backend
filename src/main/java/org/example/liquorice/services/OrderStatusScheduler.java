@@ -27,7 +27,6 @@ public class OrderStatusScheduler {
 
     private Order.Status getNextStatus(Order.Status currentStatus) {
         return switch (currentStatus) {
-            case CREATED -> Order.Status.PROCESSING;
             case PROCESSING -> Order.Status.SHIPPING;
             case SHIPPING -> Order.Status.DELIVERED;
             default -> currentStatus;
