@@ -34,12 +34,16 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDto> login(@RequestBody @Valid AuthRequestDto request) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        try {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
-        String accessToken = jwtService.generateAccessToken(authentication);
-        String refreshToken = jwtService.generateRefreshToken(authentication);
+            String accessToken = jwtService.generateAccessToken(authentication);
+            String refreshToken = jwtService.generateRefreshToken(authentication);
 
-        return ResponseEntity.ok(new AuthResponseDto(accessToken, refreshToken));
+            return ResponseEntity.ok(new AuthResponseDto(accessToken, refreshToken));
+        } catch (Exception e) {
+            throw new IllegalArgumentException("email or password", e);
+        }
     }
 
     @PostMapping("/refresh")
