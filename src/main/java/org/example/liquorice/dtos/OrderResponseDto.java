@@ -20,4 +20,5 @@ public class OrderResponseDto {
     private LocalDate estimatedDeliveryDate;
     private List<OrderItemDto> orderItems;
     private AddressDto deliveryAddress;
+    private String customerId;
 }

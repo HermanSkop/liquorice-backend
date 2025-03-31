@@ -54,8 +54,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.PATCH,
-                                AppConfig.BASE_PATH + "/products/{id}/available",
-                                AppConfig.BASE_PATH + "/orders/{id}/refund")
+                                AppConfig.BASE_PATH + "/products/{productId}/available",
+                                AppConfig.BASE_PATH + "/orders/{orderId}/refund",
+                                AppConfig.BASE_PATH + "/customers/{customerId}/orders")
                             .hasRole("ADMIN")
                         .requestMatchers(AppConfig.BASE_PATH + "/cart/**").hasRole("CUSTOMER")
                         .anyRequest().authenticated()

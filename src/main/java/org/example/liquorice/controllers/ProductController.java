@@ -46,8 +46,8 @@ public class ProductController {
         return productService.getAllCategories();
     }
 
-    @PatchMapping("/{id}/available")
-    public ResponseEntity<ProductPreviewDto> setAvailable(@RequestBody boolean isAvailable, @PathVariable String id) {
-        return ResponseEntity.ok(productService.setAvailable(id, isAvailable));
+    @PatchMapping("/{productId}/available")
+    public ResponseEntity<ProductPreviewDto> setAvailable(@RequestBody boolean isAvailable, @PathVariable String productId) {
+        return ResponseEntity.ok(productService.setAvailable(productId, isAvailable));
     }
 }

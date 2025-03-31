@@ -11,8 +11,11 @@ import org.example.liquorice.repositories.OrderRepository;
 import org.example.liquorice.repositories.ProductRepository;
 import org.example.liquorice.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -101,6 +104,19 @@ public class OrderService {
     public List<OrderResponseDto> getOrdersForCustomer(String username) {
         User customer = userRepository.findByEmail(username)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+
+        List<Order> orders = orderRepository.findAllByCustomerId(customer.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+
+        return orders.stream()
+                .map(this::mapToOrderResponseDto)
+                .toList();
+    }
+
+    public List<OrderResponseDto> getOrdersForCustomerById(String id) {
+        User customer = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+
 
         List<Order> orders = orderRepository.findAllByCustomerId(customer.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Order not found"));
