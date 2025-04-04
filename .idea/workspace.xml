@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="179820c0-656c-432d-813f-502b4da19888" name="Changes" comment="Tempo branch cleared">
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/liquorice/config/BootstrapData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/liquorice/config/BootstrapData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/liquorice/config/security/EmailPasswordAuthenticationProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/liquorice/config/security/EmailPasswordAuthenticationProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/liquorice/config/security/JwtLoggingFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/liquorice/config/security/JwtLoggingFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/liquorice/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/liquorice/controllers/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/liquorice/controllers/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/liquorice/controllers/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/liquorice/controllers/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/liquorice/controllers/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/liquorice/controllers/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/liquorice/controllers/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/liquorice/controllers/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/liquorice/controllers/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/liquorice/controllers/exception_handlers/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/liquorice/controllers/exception_handlers/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/liquorice/services/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/liquorice/services/CartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/liquorice/services/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/liquorice/services/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/liquorice/services/OrderStatusScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/liquorice/services/OrderStatusScheduler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/liquorice/services/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/liquorice/services/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/liquorice/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/liquorice/services/UserService.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="test" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;HermanSkop&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/HermanSkop/liquorice-backend.git&quot;,
+    &quot;accountId&quot;: &quot;0f70e526-943c-4e2c-b0f6-e05a797d7658&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;HermanSkop&quot;,
+    &quot;repository&quot;: &quot;liquorice-backend&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2twT0DilrbCUZMCnKMovqOfeOgj" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Notification.DisplayName-DoNotAsk-Compiler&quot;: &quot;Build finished&quot;,
+    &quot;Notification.DoNotAsk-Compiler&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.LiquoriceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/hermanskapets/Desktop/Liquorice/liquorice-backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;jvm.logging&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mongo&quot;
+    ]
+  }
+}</component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.example.liquorice.dtos" />
+      <recent name="org.example.liquorice.model" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.example.liquorice.repositories" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="LiquoriceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="JWT_SECRET_KEY" value="txihvszpqitgacixwqjiijaqvwghlcjiovvnlxtupdosrkwlvknikkizvcmnhjpl" />
+        <env name="REDIS_HOST" value="localhost" />
+        <env name="STRIPE_API_KEY" value="sk_test_51Oj66fC0thQyOQDaW9RQHrQaRsJGtZGUYeg3tyWBpUHuEdkjeNqszX3qAAJv7MMxDj7n6F0XA69X92C2dclBkhV000MhOjUvlu" />
+      </envs>
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="liquorice-backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.liquorice.LiquoriceApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.liquorice.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.LiquoriceApplication" />
+        <item itemvalue="Spring Boot.LiquoriceApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="179820c0-656c-432d-813f-502b4da19888" name="Changes" comment="" />
+      <created>1741261911799</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1741261911799</updated>
+      <workItem from="1741262282947" duration="1381000" />
+      <workItem from="1741264052075" duration="454000" />
+      <workItem from="1741264558667" duration="281000" />
+      <workItem from="1741266804145" duration="3481000" />
+      <workItem from="1741278311276" duration="17774000" />
+      <workItem from="1741693074089" duration="29000" />
+      <workItem from="1741693109492" duration="4109000" />
+      <workItem from="1741699355532" duration="13449000" />
+      <workItem from="1741857359688" duration="11951000" />
+      <workItem from="1741946429039" duration="35174000" />
+      <workItem from="1742306301366" duration="8548000" />
+      <workItem from="1742374944683" duration="32854000" />
+      <workItem from="1742476389413" duration="6190000" />
+      <workItem from="1742576663522" duration="16224000" />
+      <workItem from="1742667050557" duration="3502000" />
+      <workItem from="1742670677741" duration="883000" />
+      <workItem from="1742671590399" duration="29000" />
+      <workItem from="1742671690341" duration="1780000" />
+      <workItem from="1742674421320" duration="5442000" />
+      <workItem from="1742811854848" duration="39071000" />
+      <workItem from="1742980347335" duration="32316000" />
+      <workItem from="1743442221128" duration="318000" />
+      <workItem from="1743442549562" duration="5989000" />
+      <workItem from="1743453578097" duration="5631000" />
+      <workItem from="1743499287309" duration="4974000" />
+      <workItem from="1743589067453" duration="6097000" />
+      <workItem from="1743761173822" duration="100000" />
+      <workItem from="1743761274444" duration="26000" />
+      <workItem from="1743761303825" duration="2832000" />
+      <workItem from="1743764208098" duration="1929000" />
+    </task>
+    <task id="LOCAL-00001" summary="Project initialized, db schema, db bootstrap, products are served">
+      <option name="closed" value="true" />
+      <created>1741698225629</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1741698225629</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Security configuration based on stateless JWT, authentication methods implemented">
+      <option name="closed" value="true" />
+      <created>1741952387358</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1741952387358</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Security filter chain refactored, filtering/sorting/searching">
+      <option name="closed" value="true" />
+      <created>1742298911354</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1742298911354</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Categories are served">
+      <option name="closed" value="true" />
+      <created>1742302265681</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1742302265681</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Debug method call removed">
+      <option name="closed" value="true" />
+      <created>1742305478371</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1742305478371</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Simplified categories fetching">
+      <option name="closed" value="true" />
+      <created>1742305708766</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1742305708766</updated>
+    </task>
+    <task id="LOCAL-00007" summary="JWT blacklisting">
+      <option name="closed" value="true" />
+      <created>1742377841467</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1742377841467</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Removed unused test">
+      <option name="closed" value="true" />
+      <created>1742378594478</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1742378594478</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Docker-friendly configuration added">
+      <option name="closed" value="true" />
+      <created>1742381454762</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1742381454762</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Fixed bug with token refreshing, fully functional cart is implemented">
+      <option name="closed" value="true" />
+      <created>1742474819233</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1742474819233</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Enforce registration validation">
+      <option name="closed" value="true" />
+      <created>1742564754557</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1742564754557</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Purchasing process">
+      <option name="closed" value="true" />
+      <created>1742825329433</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1742825329433</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Customer orders page support, status as enum">
+      <option name="closed" value="true" />
+      <created>1742848053317</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1742848053317</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Api refactored">
+      <option name="closed" value="true" />
+      <created>1742894556013</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1742894556013</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Refactored security config">
+      <option name="closed" value="true" />
+      <created>1742899126029</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1742899126029</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Refactored security config">
+      <option name="closed" value="true" />
+      <created>1742903131568</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1742903131568</updated>
+    </task>
+    <task id="LOCAL-00017" summary="JWT id is added for each access token">
+      <option name="closed" value="true" />
+      <created>1742908884788</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1742908884788</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Refresh token expiration handled">
+      <option name="closed" value="true" />
+      <created>1742918893084</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1742918893084</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Refresh token expiration bug is fixed">
+      <option name="closed" value="true" />
+      <created>1742919506229</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1742919506229</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Revised pagination">
+      <option name="closed" value="true" />
+      <created>1742920516454</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1742920516454</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Model and bootstrap are modified for role separation">
+      <option name="closed" value="true" />
+      <created>1742983023651</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1742983023651</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Images are added to the bootstrap">
+      <option name="closed" value="true" />
+      <created>1742985329633</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1742985329633</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Role based access to the endpoints, administrator functionality support, User roles are replaced with the role field instead of classes">
+      <option name="closed" value="true" />
+      <created>1743061252650</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1743061252650</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Refunding, bootstrap updated, scheduled status update">
+      <option name="closed" value="true" />
+      <created>1743175991942</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1743175991942</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Orders for a specific customer">
+      <option name="closed" value="true" />
+      <created>1743455587342</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1743455587342</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Fixed status changing bug">
+      <option name="closed" value="true" />
+      <created>1743456341560</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1743456341560</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Authentication error handling">
+      <option name="closed" value="true" />
+      <created>1743457302478</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1743457302478</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Tempo branch cleared">
+      <option name="closed" value="true" />
+      <created>1743596693101</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1743596693102</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.properties" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="test" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Security filter chain refactored, filtering/sorting/searching" />
+    <MESSAGE value="Categories are served" />
+    <MESSAGE value="Debug method call removed" />
+    <MESSAGE value="Simplified categories fetching" />
+    <MESSAGE value="JWT blacklisting" />
+    <MESSAGE value="Removed unused test" />
+    <MESSAGE value="Docker-friendly configuration added" />
+    <MESSAGE value="Fixed bug with token refreshing, fully functional cart is implemented" />
+    <MESSAGE value="Enforce registration validation" />
+    <MESSAGE value="Purchasing process" />
+    <MESSAGE value="Customer orders page support, status as enum" />
+    <MESSAGE value="Api refactored" />
+    <MESSAGE value="Refactored security config" />
+    <MESSAGE value="JWT id is added for each access token" />
+    <MESSAGE value="Refresh token expiration handled" />
+    <MESSAGE value="Refresh token expiration bug is fixed" />
+    <MESSAGE value="Revised pagination" />
+    <MESSAGE value="Model and bootstrap are modified for role separation" />
+    <MESSAGE value="Images are added to the bootstrap" />
+    <MESSAGE value="Role based access to the endpoints, administrator functionality support, User roles are replaced with the role field instead of classes" />
+    <MESSAGE value="Refunding, bootstrap updated, scheduled status update" />
+    <MESSAGE value="Orders for a specific customer" />
+    <MESSAGE value="Fixed status changing bug" />
+    <MESSAGE value="Authentication error handling" />
+    <MESSAGE value="Tempo branch cleared" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tempo branch cleared" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
