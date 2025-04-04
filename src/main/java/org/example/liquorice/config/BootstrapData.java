@@ -1,5 +1,6 @@
 package org.example.liquorice.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.liquorice.models.Product;
 import org.example.liquorice.models.User;
 import org.example.liquorice.repositories.ProductRepository;
@@ -16,9 +17,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Configuration
 public class BootstrapData {
-    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(BootstrapData.class);
     @Bean
     CommandLineRunner initDatabase(ProductRepository productRepo, UserRepository userRepository, PasswordEncoder passwordEncoder, MongoTemplate mongoTemplate) {
         return args -> {
@@ -262,7 +263,7 @@ public class BootstrapData {
         try (InputStream inputStream = new FileInputStream(path)) {
             return inputStream.readAllBytes();
         } catch (IOException e) {
-            logger.error("Error loading image from path: {}", path, e);
+            log.error("Error loading image from path: {}", path, e);
             return null;
         }
     }

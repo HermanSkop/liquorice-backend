@@ -3,6 +3,7 @@ package org.example.liquorice.controllers;
 import lombok.RequiredArgsConstructor;
 import org.example.liquorice.dtos.PagedResponse;
 import org.example.liquorice.dtos.ProductPreviewDto;
+import org.example.liquorice.exceptions.NotFoundException;
 import org.example.liquorice.services.ProductService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -48,6 +49,8 @@ public class ProductController {
 
     @PatchMapping("/{productId}/available")
     public ResponseEntity<ProductPreviewDto> setAvailable(@RequestBody boolean isAvailable, @PathVariable String productId) {
-        return ResponseEntity.ok(productService.setAvailable(productId, isAvailable));
+        return productService.setAvailable(productId, isAvailable)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new NotFoundException("Product not found"));
     }
 }

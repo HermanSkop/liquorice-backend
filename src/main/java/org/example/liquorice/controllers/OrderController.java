@@ -5,6 +5,8 @@ import com.stripe.model.PaymentIntent;
 import lombok.RequiredArgsConstructor;
 import org.example.liquorice.config.AppConfig;
 import org.example.liquorice.dtos.*;
+import org.example.liquorice.exceptions.NotFoundException;
+import org.example.liquorice.models.Order;
 import org.example.liquorice.services.CartService;
 import org.example.liquorice.services.OrderService;
 import org.springframework.http.ResponseEntity;
@@ -22,33 +24,42 @@ public class OrderController {
 
     @PostMapping("/complete")
     public ResponseEntity<OrderResponseDto> completeOrder(Authentication authentication, @RequestBody OrderRequestDto orderRequest) throws StripeException {
-        OrderResponseDto order = orderService.submitOrder(authentication.getName(), orderRequest);
-        return ResponseEntity.ok(order);
+        return orderService.submitOrder(authentication.getName(), orderRequest)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new NotFoundException("Order or customer not found"));
     }
 
     @PostMapping
     public ResponseEntity<ClientIntentResponseDto> createOrder(Authentication authentication, @RequestBody AddressDto addressDto) throws StripeException {
-        CartResponseDto cart = cartService.getCart(authentication.getName());
+        CartResponseDto cart = cartService.getCart(authentication.getName())
+                .orElseThrow(() -> new NotFoundException("User not found"));
+
         double totalAmount = cartService.getTotalPrice(cart);
 
         PaymentIntent paymentIntent = orderService.generatePaymentIntent((int) (totalAmount * 100));
 
+        Order order = orderService.createOrder(authentication.getName(), cart, paymentIntent.getId(), addressDto)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+
         return ResponseEntity.ok(new ClientIntentResponseDto(
                 paymentIntent.getClientSecret(),
-                orderService.createOrder(authentication.getName(), cart, paymentIntent.getId(), addressDto).getId())
+                order.getId())
         );
     }
 
     @GetMapping("/{orderId}/payment-intent")
     public ResponseEntity<ClientIntentResponseDto> getPaymentIntent(@PathVariable String orderId) throws StripeException {
-        PaymentIntent paymentIntent = orderService.getPaymentIntent(orderId);
+        PaymentIntent paymentIntent = orderService.getPaymentIntent(orderId)
+                .orElseThrow(() -> new NotFoundException("Order not found"));
+
         return ResponseEntity.ok(new ClientIntentResponseDto(paymentIntent.getClientSecret(), orderId));
     }
 
     @PatchMapping("/{orderId}/refund")
     public ResponseEntity<OrderResponseDto> refundOrder(@PathVariable String orderId) throws StripeException {
-        OrderResponseDto order = orderService.refundOrder(orderId);
-        return ResponseEntity.ok(order);
+        return orderService.refundOrder(orderId)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new NotFoundException("Order not found"));
     }
 
     @GetMapping

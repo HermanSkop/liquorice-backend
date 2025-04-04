@@ -1,9 +1,7 @@
 package org.example.liquorice.config.security;
 
 import lombok.RequiredArgsConstructor;
-import org.example.liquorice.services.JwtService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.stereotype.Component;
@@ -18,10 +16,10 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtLoggingFilter extends OncePerRequestFilter {
-    private static final Logger log = LoggerFactory.getLogger(JwtLoggingFilter.class);
     private final JwtDecoder jwtDecoder;
 
     @Override

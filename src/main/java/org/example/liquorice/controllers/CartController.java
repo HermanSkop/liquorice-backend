@@ -3,6 +3,7 @@ package org.example.liquorice.controllers;
 import lombok.RequiredArgsConstructor;
 import org.example.liquorice.dtos.CartRequestDto;
 import org.example.liquorice.dtos.CartResponseDto;
+import org.example.liquorice.exceptions.NotFoundException;
 import org.example.liquorice.services.CartService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -19,12 +20,15 @@ public class CartController {
 
     @GetMapping
     public ResponseEntity<CartResponseDto> getCart(Authentication authentication) {
-        return ResponseEntity.ok(cartService.getCart(authentication.getName()));
+        return cartService.getCart(authentication.getName())
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new NotFoundException("User not found"));
     }
 
    @PostMapping
     public ResponseEntity<CartResponseDto> saveCart(@RequestBody CartRequestDto cart, Authentication authentication) {
-        cartService.saveCart(cart, authentication.getName());
-        return ResponseEntity.ok(cartService.getCart(authentication.getName()));
+        return cartService.saveCart(cart, authentication.getName())
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new NotFoundException("User not found"));
     }
 }

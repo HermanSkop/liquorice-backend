@@ -10,10 +10,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,9 +66,15 @@ public class ProductService {
         return dto;
     }
 
-    public ProductPreviewDto setAvailable(String productId, boolean isAvailable) {
-        Product product = productRepository.findById(productId).orElseThrow(() -> new IllegalArgumentException("Product not found"));
+    @Transactional
+    public Optional<ProductPreviewDto> setAvailable(String productId, boolean isAvailable) {
+        Optional<Product> productOpt = productRepository.findById(productId);
+        if (productOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Product product = productOpt.get();
         product.setAvailable(isAvailable);
-        return modelMapper.map(productRepository.save(product), ProductPreviewDto.class);
+        return Optional.of(mapToProductPreviewDto(productRepository.save(product)));
     }
 }

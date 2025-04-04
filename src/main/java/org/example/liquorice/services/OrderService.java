@@ -11,16 +11,15 @@ import org.example.liquorice.repositories.OrderRepository;
 import org.example.liquorice.repositories.ProductRepository;
 import org.example.liquorice.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.security.Principal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,12 +32,19 @@ public class OrderService {
     private final ProductService productService;
     private final ProductRepository productRepository;
 
-    public OrderResponseDto submitOrder(String customerEmail, OrderRequestDto orderRequest) throws StripeException {
-        User customer = userRepository.findByEmail(customerEmail)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+    @Transactional
+    public Optional<OrderResponseDto> submitOrder(String customerEmail, OrderRequestDto orderRequest) throws StripeException {
+        Optional<User> customerOpt = userRepository.findByEmail(customerEmail);
+        if (customerOpt.isEmpty()) {
+            return Optional.empty();
+        }
+        User customer = customerOpt.get();
 
-        Order order = orderRepository.findById(orderRequest.getOrderId())
-                .orElseThrow(() -> new RuntimeException("Order not found"));
+        Optional<Order> orderOpt = orderRepository.findById(orderRequest.getOrderId());
+        if (orderOpt.isEmpty()) {
+            return Optional.empty();
+        }
+        Order order = orderOpt.get();
 
         if (!Objects.equals(order.getCustomerId(), customer.getId()))
             throw new IllegalArgumentException("Customer does not own this order");
@@ -50,12 +56,15 @@ public class OrderService {
 
         order.setStatus(Order.Status.PROCESSING);
 
-        return mapToOrderResponseDto(orderRepository.save(order));
+        return Optional.of(mapToOrderResponseDto(orderRepository.save(order)));
     }
 
-    public Order createOrder(String customerEmail, CartResponseDto cart, String paymentIntentId, AddressDto address) {
-        User customer = userRepository.findByEmail(customerEmail)
-                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+    public Optional<Order> createOrder(String customerEmail, CartResponseDto cart, String paymentIntentId, AddressDto address) {
+        Optional<User> customerOpt = userRepository.findByEmail(customerEmail);
+        if (customerOpt.isEmpty()) {
+            return Optional.empty();
+        }
+        User customer = customerOpt.get();
 
         Order order = Order.builder()
                 .customerId(customer.getId())
@@ -73,7 +82,7 @@ public class OrderService {
                 .estimatedDeliveryDate(LocalDate.now().plusDays(7))
                 .build();
 
-        return orderRepository.save(order);
+        return Optional.of(orderRepository.save(order));
     }
 
     public PaymentIntent generatePaymentIntent(int amountCents) throws StripeException {
@@ -101,36 +110,52 @@ public class OrderService {
         return dto;
     }
 
-    public List<OrderResponseDto> getOrdersForCustomer(String username) {
-        User customer = userRepository.findByEmail(username)
-                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+    @Transactional
+    public Optional<List<OrderResponseDto>> getOrdersForCustomer(String username) {
+        Optional<User> customerOpt = userRepository.findByEmail(username);
+        if (customerOpt.isEmpty()) {
+            return Optional.empty();
+        }
+        User customer = customerOpt.get();
 
-        List<Order> orders = orderRepository.findAllByCustomerId(customer.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+        Optional<List<Order>> ordersOpt = orderRepository.findAllByCustomerId(customer.getId());
+        if (ordersOpt.isEmpty()) {
+            return Optional.of(List.of());
+        }
 
-        return orders.stream()
+        List<OrderResponseDto> orderDtos = ordersOpt.get().stream()
                 .map(this::mapToOrderResponseDto)
                 .toList();
+
+        return Optional.of(orderDtos);
     }
 
-    public List<OrderResponseDto> getOrdersForCustomerById(String id) {
-        User customer = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+    @Transactional
+    public Optional<List<OrderResponseDto>> getOrdersForCustomerById(String id) {
+        Optional<User> customerOpt = userRepository.findById(id);
+        if (customerOpt.isEmpty()) {
+            return Optional.empty();
+        }
 
+        Optional<List<Order>> ordersOpt = orderRepository.findAllByCustomerId(id);
+        if (ordersOpt.isEmpty()) {
+            return Optional.of(List.of());
+        }
 
-        List<Order> orders = orderRepository.findAllByCustomerId(customer.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
-
-        return orders.stream()
+        List<OrderResponseDto> orderDtos = ordersOpt.get().stream()
                 .map(this::mapToOrderResponseDto)
                 .toList();
+
+        return Optional.of(orderDtos);
     }
 
-    public PaymentIntent getPaymentIntent(String orderId) throws StripeException {
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+    public Optional<PaymentIntent> getPaymentIntent(String orderId) throws StripeException {
+        Optional<Order> orderOpt = orderRepository.findById(orderId);
+        if (orderOpt.isEmpty()) {
+            return Optional.empty();
+        }
 
-        return PaymentIntent.retrieve(order.getPaymentIntentId());
+        return Optional.of(PaymentIntent.retrieve(orderOpt.get().getPaymentIntentId()));
     }
 
     public List<OrderResponseDto> getOrders() {
@@ -140,9 +165,13 @@ public class OrderService {
                 .toList();
     }
 
-    public OrderResponseDto refundOrder(String orderId) throws StripeException {
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+    @Transactional
+    public Optional<OrderResponseDto> refundOrder(String orderId) throws StripeException {
+        Optional<Order> orderOpt = orderRepository.findById(orderId);
+        if (orderOpt.isEmpty()) {
+            return Optional.empty();
+        }
+        Order order = orderOpt.get();
 
         if (order.getStatus() != Order.Status.DELIVERED) {
             throw new IllegalStateException("Order is not eligible for refund");
@@ -155,6 +184,6 @@ public class OrderService {
         order.setStatus(Order.Status.REFUNDED);
         orderRepository.save(order);
 
-        return mapToOrderResponseDto(order);
+        return Optional.of(mapToOrderResponseDto(order));
     }
 }

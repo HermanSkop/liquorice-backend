@@ -58,8 +58,9 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<Void> register(@RequestBody @Valid AuthRequestDto request) {
-        userService.registerCustomer(request.getEmail(), request.getPassword());
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return userService.registerCustomer(request.getEmail(), request.getPassword())
+                .map(user -> ResponseEntity.status(HttpStatus.CREATED).<Void>build())
+                .orElseThrow(() -> new IllegalArgumentException("User already exists with this email"));
     }
 
     @PostMapping("/logout")
@@ -78,3 +79,4 @@ public class AuthController {
         return ResponseEntity.ok().build();
     }
 }
+

@@ -12,10 +12,12 @@ import org.example.liquorice.repositories.CartRepository;
 import org.example.liquorice.repositories.ProductRepository;
 import org.example.liquorice.repositories.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,14 +28,17 @@ public class CartService {
     private final UserRepository userRepository;
     private final ProductService productService;
 
-    public CartResponseDto getCart(String userEmail) {
-        String userId = userRepository.findByEmail(userEmail)
-                .map(User::getId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    @Transactional
+    public Optional<CartResponseDto> getCart(String userEmail) {
+        Optional<User> userOptional = userRepository.findByEmail(userEmail);
+        if (userOptional.isEmpty()) {
+            return Optional.empty();
+        }
 
+        String userId = userOptional.get().getId();
         Cart cart = cartRepository.findById(userId).orElse(new Cart());
 
-        return new CartResponseDto(cart.getProductQuantities().keySet()
+        List<CartItemDto> cartItems = cart.getProductQuantities().keySet()
                 .stream()
                 .map(productId -> productRepository.findById(productId).orElse(null))
                 .filter(Objects::nonNull)
@@ -41,14 +46,19 @@ public class CartService {
                                 productService.mapToProductPreviewDto(product),
                                 cart.getProductQuantities().get(product.getId()))
                 )
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
+
+        return Optional.of(new CartResponseDto(cartItems));
     }
 
+    @Transactional
+    public Optional<CartResponseDto> saveCart(CartRequestDto cart, String userEmail) {
+        Optional<User> userOptional = userRepository.findByEmail(userEmail);
+        if (userOptional.isEmpty()) {
+            return Optional.empty();
+        }
 
-    public void saveCart(CartRequestDto cart, String userEmail) {
-        String userId = userRepository.findByEmail(userEmail)
-                .map(User::getId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        String userId = userOptional.get().getId();
 
         List<Product> products = fetchProducts(cart.getProductQuantities());
         products.forEach(product -> {
@@ -59,18 +69,16 @@ public class CartService {
             }
         });
 
-        Cart existingCart = cartRepository.findById(userId).orElse(new Cart());
+        Cart existingCart = new Cart();
         existingCart.setUserId(userId);
         existingCart.setProductQuantities(cart.getProductQuantities());
         cartRepository.save(existingCart);
+
+        return getCart(userEmail);
     }
 
     private List<Product> fetchProducts(Map<String, Integer> productQuantities) {
-        return productQuantities.keySet()
-                .stream()
-                .map(productId -> productRepository.findById(productId).orElse(null))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+        return productRepository.findAllById(productQuantities.keySet());
     }
 
     public double getTotalPrice(CartResponseDto cart) {

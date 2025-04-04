@@ -6,15 +6,17 @@ import org.example.liquorice.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void registerCustomer(String email, String password) {
+    public Optional<User> registerCustomer(String email, String password) {
         if(userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("User already exists with this email");
+            return Optional.empty();
         }
 
         User customer = User.builder()
@@ -23,6 +25,6 @@ public class UserService {
                 .password(passwordEncoder.encode(password))
                 .build();
 
-        userRepository.save(customer);
+        return Optional.of(userRepository.save(customer));
     }
 }

@@ -1,6 +1,7 @@
 package org.example.liquorice.controllers.exception_handlers;
 
 import com.stripe.exception.StripeException;
+import org.example.liquorice.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -28,5 +29,14 @@ public class GlobalExceptionHandler {
         body.put("error", ex.getClass().getSimpleName());
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Object> handleNotFoundException(NotFoundException ex) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("message", ex.getMessage());
+        body.put("error", "ResourceNotFound");
+
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 }
